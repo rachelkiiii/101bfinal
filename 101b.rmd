@@ -27,7 +27,7 @@ library(apa)
 
 \newpage
 
-## Abstract
+## 1 Abstract
 Adrenaline, also known as epinephrine, is a hormone that regulates visceral functions such as respiration. Every emotional response has a hormonal component that includes the release of adrenaline, which is controlled by the sympathetic nervous system. Adrenaline plays an essential role in risk assessment in health implications, and this paper delves into the interplay between gender, age and adrenaline release during extreme activity—bungee jumping. We explore whether significant variations exist in adrenaline levels and responses among participants of different age groups and gender when engaging in bungee jumping. Through a comprehensive study integrating physiological measurements and surveys from “The Islands” civilization, we studied the insights on how age and gender intersect with the experience of adrenaline-inducing activities.
 
 
@@ -37,7 +37,59 @@ head(adrenaline)
 dim(adrenaline)
 ```
 
-## ANOVA Table
+
+## 2 Introduction
+
+
+## 3 Methods
+
+\setlength{\leftskip}{1cm}
+### 3.1 Participants
+### 3.2 Design
+### 3.3 Instrumnets
+### 3.4 Procedure
+
+
+
+
+\setlength{\leftskip}{0pt}
+## 4 Analysis
+
+\setlength{\leftskip}{1cm}
+### 4.1 Statistical Analysis
+### 4.2 Sample Size Determination
+
+
+![G-Power Calculation](`r normalizePath("~/Downloads/101bgpowerfinal")`)
+\newpage
+
+\setlength{\leftskip}{0pt}
+## 5 Results
+\setlength{\leftskip}{1cm}
+### 5.1 ANOVA Table
+| Source of Variation | Degrees of Freedom (df) | Sum of Squares (SS) | Mean Square (MS) | F-statistic | p-value |
+|---------------------|-------------------------|---------------------|-------------------|-------------|---------|
+| Between Groups      | df_between              | SS_between          | MS_between        | F_value     | p_value |
+| Within Groups       | df_within               | SS_within           | MS_within         |             |         |
+| Total               | df_total                | SS_total            |                   |             |         |
+
+### 5.2 Plots
+\setlength{\leftskip}{2cm}
+#### 5.2.1 QPlot
+#### 5.2.2 Box Plot
+#### 5.2.3 Interaction Plot
+
+
+\setlength{\leftskip}{1cm}
+### 5.3 Residual Diagnositics
+
+\setlength{\leftskip}{0pt}
+## 6 Discussion
+
+## 7 References
+
+
+
 ```{r}
 anova_result <- aov(Adrenaline.Difference ~ Gender * Age.Range, data = adrenaline)
 
@@ -48,7 +100,7 @@ model <- lm(Adrenaline.Difference ~ Gender * Age.Range, data = adrenaline)
 summary(model)
 plot(model)
 
-#Ineraction plot
+#Interaction plot
 ggplot(adrenaline, aes(x=Age.Range, y=Adrenaline.Difference, group=Gender, color=Gender)) + 
   stat_summary(fun=mean,geom ="point") + 
   stat_summary(fun=mean,geom ="line")
@@ -101,9 +153,3 @@ qplot(Age, Adrenaline.Difference, col = factor(Gender), data = adrenaline)
 anova_plot <- summary(anova_result)
 
 ```
-| Source of Variation | Degrees of Freedom (df) | Sum of Squares (SS) | Mean Square (MS) | F-statistic | p-value |
-|---------------------|-------------------------|---------------------|-------------------|-------------|---------|
-| Between Groups      | df_between              | SS_between          | MS_between        | F_value     | p_value |
-| Within Groups       | df_within               | SS_within           | MS_within         |             |         |
-| Total               | df_total                | SS_total            |                   |             |         |
-
