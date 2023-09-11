@@ -28,6 +28,7 @@ library(apa)
 \newpage
 
 ## Abstract
+Adrenaline, also known as epinephrine, is a hormone that regulates visceral functions such as respiration. Every emotional response has a hormonal component that includes the release of adrenaline, which is controlled by the sympathetic nervous system. Adrenaline plays an essential role in risk assessment in health implications, and this paper delves into the interplay between gender, age and adrenaline release during extreme activity—bungee jumping. We explore whether significant variations exist in adrenaline levels and responses among participants of different age groups and gender when engaging in bungee jumping. Through a comprehensive study integrating physiological measurements and surveys from “The Islands” civilization, we studied the insights on how age and gender intersect with the experience of adrenaline-inducing activities.
 
 
 ```{r, include=FALSE}
