@@ -5,7 +5,10 @@ subtite: |
   | STATS 101B Final Project \vspace{1cm} 
 author: "Noor Benny, Teresa Bui, Rachel Ki"
 date: "`r Sys.Date()`"
-output: pdf_document
+output: 
+  pdf_document:
+    toc: true
+    toc_depth: 3
 ---
 
 ```{r setup, include=FALSE}
@@ -23,133 +26,197 @@ library(knitr)
 library(agricolae)
 library(pwr)
 library(apa)
+library(gridExtra)
 ```
-
-\newpage
-
-## 1 Abstract
-Adrenaline, also known as epinephrine, is a hormone that regulates visceral functions such as respiration. Every emotional response has a hormonal component that includes the release of adrenaline, which is controlled by the sympathetic nervous system. Adrenaline plays an essential role in risk assessment in health implications, and this paper delves into the interplay between gender, age and adrenaline release during extreme activity—bungee jumping. We explore whether significant variations exist in adrenaline levels and responses among participants of different age groups and gender when engaging in bungee jumping. Through a comprehensive study integrating physiological measurements and surveys from “The Islands” civilization, we studied the insights on how age and gender intersect with the experience of adrenaline-inducing activities.
-
-
 ```{r, include=FALSE}
 adrenaline <- read.csv("~/Downloads/101bresearch.csv")
 head(adrenaline)
 dim(adrenaline)
 ```
+\newpage
 
+## 1 Abstract
+Adrenaline, also known as epinephrine, is a hormone that regulates visceral functions such as respiration. Every emotional response has a hormonal component that includes the release of adrenaline, which is controlled by the sympathetic nervous system. Adrenaline plays an essential role in risk assessment in health implications, and this paper delves into the interplay between gender, age and adrenaline release during extreme activity—bungee jumping. We explore whether significant variations exist in adrenaline levels and responses among participants of different age groups and gender when engaging in bungee jumping. Through a comprehensive study integrating physiological measurements and surveys from “The Islands” civilization, we studied the insights on how age and gender intersect with the experience of adrenaline-inducing activities.
 
 ## 2 Introduction
 
+Adrenaline, commonly referred to as the “fight or flight” response, is a versatile hormone and neurotransmitter that plays an important role in the human body’s response to stress and excitement. It allows individuals to quickly escape or confront dangerous situations. When in this level of intense stress or exhilaration, the adrenal glands release adrenaline into the bloodstream, which sets off a series of physical and mental changes. Some of these changes include an increased heart rate, heightened alertness, improved strength, and a surge of energy. 
+
+The importance of adrenaline goes beyond its evolutionary function in survival; it is a fundamental element of many exciting and high-risk activities that people participate in today. From extreme sports like bungee jumping and skydiving to the intense thrill of a roller coaster ride, adrenaline acts as the driving force behind these experiences, intensifying their excitement.
+
+Bungee jumping is a perfect example of a scary yet exciting activity that combines the fear of falling with the excitement of bouncing back. In this activity, participants leap from a great height while attached to a bungee cord and are sprung back up, giving them a thrilling experience of a free fall and a quick rebound.
+
+Research suggests that gender and age may introduce variations in how individuals experience and react to adrenaline-inducing situations. Hormonal, physiological, and psychological differences between age groups and genders can potentially affect the release, perception, and consequences of adrenaline rushes. These distinctions may have significant implications for risk-taking behaviors, emotional responses, and overall well-being during and after adrenaline-seeking activities.
+
+This paper aims to investigate whether notable differences exist in adrenaline release and its effects among participants of different genders and age groups in the context of bungee jumping. By examining the physiological responses and survey data of participants across various age and gender categories, our goal is to uncover the complex relationship between age, gender, and the experience of adrenaline in extreme sports. Understanding these intricacies is essential not only for advancing our understanding of demographic-specific physiological responses but also for improving risk assessment, ensuring the safety of participants in adrenaline-inducing activities, and customizing such experiences to the preferences of diverse demographic groups. In doing so, we hope to contribute to a more comprehensive understanding of the intricate connection between adrenaline, gender, age, and the human encounter with thrilling adventures.
 
 ## 3 Methods
 
 \setlength{\leftskip}{1cm}
 ### 3.1 Participants
+The participants in our experiment are individuals on the island. In order to select participants, we randomly selected individuals from each island and asked them to consent to participate in our study. We chose a total of 192 participants, consisting of 96 females and 96 males, and with 48 individuals from each of the following age groups: 13 to 18 years old, 19 to 45 years old, 46 to 64 years old, and 65 years and older.
+
 ### 3.2 Design
-### 3.3 Instrumnets
+
+The type of experiment design is a Two-Way Factorial Design. The parameters for the design are illustrated in the table below: 
+
+|  | Age Groups|
+|-----------:|----:|----:|----:|----:|
+|Female |13-18|19-45|46-64|65+|
+|Male |13-18|19-45|46-64|65+|
+
+The factor diagram is illustrated below:
+
+\setlength{\leftskip}{0pt}
+![Factor Diagram](`r normalizePath("~/Downloads/factordiagram.png")`)
+
+We chose a Two-Way Factorial Design to investigate the influences of the two independent variables (gender and age) simultaneously on the dependent variable, the difference in blood adrenaline levels before and after bungee jumpting. This design enables us to examine main effects of gender and age and their interaction effect, which is important for understanding the impact of one variable on the levels of the other. In addition, by including multiple age groups, we can assess if the age-related differences in adrenaline responses exist across male and female. Finally, the Two-Way factorial design provides a framework for analyzing complex interactions between gender and age, which provides how the factors jointly affect adreanline dynamics during extreme sports.
+
+### 3.3 Instruments
+
+In our study, each participant was given a blood adrenaline test to measure their adrenaline levels. They had their adrenaline levels measured before they bungee jumped. The participants then proceeded to do a 50m bungee jump and had their blood adrenaline levels tested 30 seconds after the jump.
+
 ### 3.4 Procedure
 
-
-
+- We sorted through the individuals on the Island and sorted them into groups based on gender (male / female) and age (13-18 / 19-45 / 46-64 / 65+). 
+- We randomly selected individuals from each Island until we had 48 individuals in each age group category, with an equal number of males and females in each group. 
+- For each individual, we conducted a blood adrenaline test to measure their blood adrenaline level. This recorded this value in picograms per milliliter (pg/mL). 
+- We had each individual bungee jump 50 meters. 
+- For each individual, we conducted a second blood adrenaline test to measure their blood adrenaline level. This was done immediately after the bungee jump. We recorded this value in picograms per milliliter (pg/mL). 
+- For each individual, we calculated the difference between their blood  adrenaline levels before and after the treatment. 
 
 \setlength{\leftskip}{0pt}
 ## 4 Analysis
 
 \setlength{\leftskip}{1cm}
 ### 4.1 Statistical Analysis
+We will conduct an ANOVA on our data using R. We plan to use the F-testing within and between treatments to determine if there is a significant difference in the blood adrenaline levels before and after the jump between male and female gender groups.
+
 ### 4.2 Sample Size Determination
+The design we will be using is a Two-Way Factorial Design. We will use a power of 0.8 in order to correctly reject the null hypothesis. We will also use a significance level of  $\alpha = 0.05$, which is the probability of falsely rejecting the null hypothesis. Additionally, to quantify the difference between groups, we will be using a conservative effect size of 0.25. Using G*Power, we determined that the sample size required for our experiment is 179 with 3 degrees of freedom; however, to have an even distribution between the two groups, we will have a sample size of 192, giving us 96 individuals per gender group and 48 individuals per age group. 
 
+\setlength{\leftskip}{0pt}
+![G*Power Calculation](`r normalizePath("~/Downloads/101bgpowerfinal.png")`)
 
-![G-Power Calculation](`r normalizePath("~/Downloads/101bgpowerfinal")`)
 \newpage
 
 \setlength{\leftskip}{0pt}
 ## 5 Results
+*ANOVA Analysis*
 \setlength{\leftskip}{1cm}
+
 ### 5.1 ANOVA Table
+
 | Source of Variation | Degrees of Freedom (df) | Sum of Squares (SS) | Mean Square (MS) | F-statistic | p-value |
 |---------------------|-------------------------|---------------------|-------------------|-------------|---------|
-| Between Groups      | df_between              | SS_between          | MS_between        | F_value     | p_value |
-| Within Groups       | df_within               | SS_within           | MS_within         |             |         |
-| Total               | df_total                | SS_total            |                   |             |         |
+| Gender     | 1              | 96740346          | 96740346        | 177.441     | <2e-16 |
+| Age.Range       | 3               | 1822390           | 607463         |1.114        |  0.345   |
+| Gender:Age.Range| 3              | 60244            |   20081.        |0.037        | 0.991    |
+| Residuals       | 184            | 100316548           | 545199         |             |         |
 
-### 5.2 Plots
+*Table 1: Two way with Blocking and Interactions ANOVA Table.* 
+
+With a significance level of $\alpha = 0.05$, a p-value less than 2-16 indicates that gender by itself is statistically significant, so we can conclude that there is a statistically significant difference between the increase of blood adrenaline levels between males and females. In regards to age group and the interaction between age group and gender, their p-values are 0.345 and 0.991, respectively; the ANOVA table indicates that they are not statistically significant as their p-values are greater than our significance level of $\alpha = 0.05$. 
+
+### 5.2 Tukey HSD Adjusted P-values 
+
+| Comparison | diff | lwr | upr | p adj |
+|-----------:|-----:|-----:|-----:|-----:|
+|Male-Female|-1419.656|-1629.923|-1209.389|0|
+
+*Table 2: Post-Hoc Analysis of Differences in Adrenaline Level between the Two Different Gender.* 
+
+The Tukey's HSD post hoc test for *Gender* indicates that there is a significant difference between the male and female groups in terms of *Adrenaline.Difference*. The p-value here is 0, which is highly significant, indicating that there is a significant difference between "Male" and "Female" in regards to *Adrenaline.Difference*. With this, the difference in the mean between "Males" and "Females" is -1419.656 which tells us that, on average, men have a lower value for *Adrernaline.Difference* compared to females. 
+
+\newpage
+### 5.3 Plots
+
 \setlength{\leftskip}{2cm}
-#### 5.2.1 QPlot
-#### 5.2.2 Box Plot
-#### 5.2.3 Interaction Plot
+
+We created plots to further investigate the significance of factors.
+
+\setlength{\leftskip}{2cm}
+#### 5.3.1 Box Plot
+
+The box plot on the left shows that the blood adrenaline difference for females are greater than for males. Females had an average adrenaline difference of ~5000 pg/mL, and males had an average of ~3500 pg/mL. The boxplot of the left shows that the adrenaline difference did not vary due to age range. The greatest adrenaline difference was for the age range of 19-45. 
+
+\setlength{\leftskip}{0pt}
+![Box Plots of Gender and Age Groups](`r normalizePath("~/Downloads/comparisonplot.png")`)
+
+\setlength{\leftskip}{2cm}
+#### 5.2.2 Interaction Plot
+
+The plot suggests that there is no interaction between male and female gender groups in regards to change in blood adrenaline level, as the segmented lines on the plot appear to be parallel. We should note that the segmented line for the female gender group appears to be much higher than that of the male gender group. 
+
+\setlength{\leftskip}{0pt}
+![Interaction Plot](`r normalizePath("~/Downloads/interactionplot2.png")`)
+
+
+\setlength{\leftskip}{0pt}
 
 
 \setlength{\leftskip}{1cm}
-### 5.3 Residual Diagnositics
+### 5.4 Residual Diagnositics
+```{r echo=FALSE}
+model <- lm(Adrenaline.Difference ~ Gender * Age.Range, data = adrenaline)
+par(mfrow = c(2,2))
+plot(model)
+```
+
+Figure 5: Summary Plots of Residuals for ANOVA Results. 
+
+- Residuals vs Fitted: The residuals on the plot appear to be random; thus, the assumption of constant variance is satisfied.
+
+- Q-Q Residuals: The residuals here appear to roughly follow the straight line; thus, satisfying the assumption of normality.
+
+- Scale-Location: The residuals here also appear to be randomly scattered; thus, satisfying the assumption of homoscedasticity.
+
+- Residuals vs Factor Levels: The residuals for each gender group (male and female) appear to be randomly scattered.
+
+Based on our analysis of the residuals, all assumptions are satisfied; therefore, we can conclude that our model is adequate. 
 
 \setlength{\leftskip}{0pt}
 ## 6 Discussion
 
-## 7 References
+The aim of our study was to investigate the influence of gender and age on adrenaline release during bungee jumping, a thrilling and high-risk activity known for its adrenaline-inducing nature. We sought to understand whether gender and age play significant roles in shaping the experience of adrenaline in this extreme sport.
 
+Sample Size and Design
 
+Our research encompassed a well-balanced sample size of 192 participants, evenly distributed between males and females and spanning four age groups: 13 to 18 years old, 19 to 45 years old, 46 to 64 years old, and 65 years and older. The Two-Way Factorial Design allowed us to systematically explore the effects of gender and age on adrenaline release.
 
-```{r}
-anova_result <- aov(Adrenaline.Difference ~ Gender * Age.Range, data = adrenaline)
+Gender and Adrenaline 
 
-# Summarize the ANOVA results
-summary(anova_result)
+Our ANOVA analysis revealed a significant difference in the increase of blood adrenaline levels between males and females. This finding suggests that gender indeed has a notable impact on how individuals experience adrenaline during bungee jumping. Interestingly, the Tukey HSD post hoc test further highlighted this distinction, indicating that, on average, males had a lower increase in adrenaline levels compared to females. These results imply that gender influences the physiological response to the extreme activity, potentially affecting risk-taking behaviors and emotional responses.
 
-model <- lm(Adrenaline.Difference ~ Gender * Age.Range, data = adrenaline)
-summary(model)
-plot(model)
+Age and Adrenaline 
 
-#Interaction plot
-ggplot(adrenaline, aes(x=Age.Range, y=Adrenaline.Difference, group=Gender, color=Gender)) + 
-  stat_summary(fun=mean,geom ="point") + 
-  stat_summary(fun=mean,geom ="line")
+Contrary to our initial hypotheses, our analysis did not uncover statistically significant differences in adrenaline levels across different age groups or interactions between age and gender. This suggests that, within the age categories we examined, age alone may not be a strong determinant of the adrenaline response to bungee jumping. It is worth noting that our study's age categories were relatively broad, and more granular age distinctions might reveal more subtle variations.
 
-ggplot(adrenaline, aes(x=Gender, y=Adrenaline.Difference, group=Age.Range, color=Age.Range)) + 
-  stat_summary(fun=mean,geom ="point") + 
-  stat_summary(fun=mean,geom ="line")
+Interaction Plots
 
-FemaleAdrenaline <- adrenaline$Adrenaline.Difference[which(adrenaline$Gender == "Female")]
-MaleAdrenaline <- adrenaline$Adrenaline.Difference[which(adrenaline$Gender == "Male")]
+Our interaction plot reinforced the notion that there is no significant interaction between gender groups when it comes to the change in blood adrenaline levels. The parallel lines in the plot indicate that the relationship between gender and adrenaline release remains consistent, irrespective of age group. While the segmented line for females appeared higher, indicating a potentially stronger adrenaline response, the parallel nature of the lines suggests that gender remains a distinct factor.
 
-test <- t.test(FemaleAdrenaline, MaleAdrenaline, alternative = "two.sided", var.equal = TRUE)
+Box Plots
 
-```
+The box plots offered insights into the distribution of adrenaline level changes within our study. Although there was greater variability in the control group, the statistical differences in means between the control group and the nicotine and cannabis treatment groups were still evident. Additionally, the box plots related to dosage levels showed that higher doses led to an increase in outliers, implying that dosage might influence the variability in adrenaline level changes.
 
-```{r}
-ggplot(adrenaline, aes(x = factor(Gender), y = Adrenaline.Difference)) +
-  geom_boxplot() +
-  labs(title = "Comparison of Female Voice Frequency Difference Compared by Age Group",
-       x = "Age Group",
-       y = "Voice Frequency Difference (Hz)") +
-  theme_minimal()
+Limitations and Future Directions
 
-ggplot(adrenaline, aes(x = factor(Age.Range), y = Adrenaline.Difference)) +
-  geom_boxplot() +
-  labs(title = "Comparison of Female Voice Frequency Difference Compared by Age Group",
-       x = "Age Group",
-       y = "Voice Frequency Difference (Hz)") +
-  theme_minimal()
-```
+While our study provided valuable insights, it had some limitations. The instruments used to measure adrenaline levels focused solely on blood levels, and future studies could consider additional measures to gain a more comprehensive understanding. Furthermore, controlling for factors like the time of day and meal consumption during adrenaline measurements could further refine our results. 
 
-```{r}
-ggplot(adrenaline, aes(x = Age.Range, y = Adrenaline.Difference, fill = Gender)) +
-  geom_boxplot() +
-  labs(x = "Age Group", y = "Adrenaline Levels") +
-  scale_fill_manual(values = c("Male" = "lightgreen", "Female" = "pink")) +
-  theme_minimal()
+## 7 Conclusion
 
+In conclusion, our study sheds light on the intricate relationship between gender, age, and adrenaline release during bungee jumping. It underscores the significance of gender as a key determinant of the adrenaline response, with females displaying a more pronounced increase in adrenaline levels compared to males. While age did not exhibit a significant direct impact, more nuanced age categories might uncover more subtle effects. Overall, our findings contribute to a deeper comprehension of how demographic factors intersect with adrenaline-inducing activities, ultimately enhancing our understanding of risk-taking behaviors and emotional responses in extreme sports.
 
-ggplot(adrenaline, aes(x = Gender, y = Adrenaline.Difference, fill = Age.Range)) +
-  geom_boxplot() +
-  labs(x = "Age Group", y = "Adrenaline Levels") +
-  scale_fill_manual(values = c("13-18" = "lightgreen", "19-45" = "pink", "46-65" = "lightblue", "65+" = "navy")) +
-  theme_minimal()
-```
+## 8 References
+1) Brymer, E., & Oades, L. G. (2009). Extreme Sports: A Positive Transformation in Courage and Humility. Journal of Humanistic Psychology, 49(1), 114–126. https://doi.org/10.1177/0022167808326199
 
-```{r}
-qplot(Age, Adrenaline.Difference, col = factor(Gender), data = adrenaline)
+2) John H. Kerr, Susan Houge Mackenzie. "Psychology of Sport and Exercise" Volume 13, Issue 5, September 2012, Pages 649-657
 
-anova_plot <- summary(anova_result)
+3) Krahenbuhl GS. Adrenaline, arousal and sport. The Journal of Sports Medicine. 1975;3(3):117-121. doi:10.1177/036354657500300304
 
-```
+4) Moznik, Marijo, Bakovic, Marijo, and Ajman, Hrvoje. "Changes in Physiological Indicators during the first Bungee Jump." Sport Mont, vol. 17, no. 2, 2019, pp. 35-39. doi: 10.26773/smj.190606
+
+5) Sharon R. Weeks AB, Caitlin L. McAuliffe BS, MAJ David DuRussel MD, COL Paul F. Pasquina MD, "Physiological and Psychological Fatigue in Extreme Conditions: The Military Example" Volume 2, Issue 5, May 2010, Pages 438-441
+
+6) Sorana Jude. (2023) Returning Home After War: Representations of Romanian Veterans in a Contemporary War Novel (Schije/Shrapnel). Journal of War & Culture Studies 16:2, pages 207-230.
